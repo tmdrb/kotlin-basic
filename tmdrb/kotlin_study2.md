@@ -6,7 +6,7 @@ Kotlin에서는 상속과 decorator 패턴을 사용하지 않고도 새로운 �
 
 또한 원래의 클래스의 메소드 처럼 일반적으로 호출 할 수 있다.
 
-`
+```
 
 //Kotlin code
 
@@ -28,7 +28,7 @@ list.swap(0, 2) // 'this' inside 'swap()' will hold the value of 'list'
 //Java code
 
 
-`
+```
 
 swap 함수를 확장하기 위한 방법으로 함수 이름앞에 리시버타입을 작성해준다.
 
@@ -36,7 +36,7 @@ swap 함수를 확장하기 위한 방법으로 함수 이름앞에 리시버타
 
 list를 선언한뒤 바로 swap이라는 함수를 사용 할 수 있다.
 
-`
+```
 fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
     
     val tmp = this[index1] // 'this' corresponds to the list
@@ -45,14 +45,14 @@ fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
     
     this[index2] = tmp
 }
-`
+```
 이런식으로 제너릭으로도 가능하다.
 
 확장을 한다고 해서 확장을 하는 클래스가 수정되는 것이 아닌 "." 으로 클래스에서 새로운 함수만 호출 되게 한다.
 
 ### 확장은 리시버 타입을 유추해서 적용되는 것이 아닌 함수를 호출한 타입 그대로 호출된다. 
 
-`
+```
 open class Shape
 
 class Rectangle: Shape()
@@ -69,10 +69,10 @@ fun printClassName(s: Shape) {
 printClassName(Rectangle())
 -----------------------------
 결과값: Shape
-`
+```
 위와 같이 s 는 Shape 타입이다. 하지만 실제로 함수를 호출 할 때 Shape을 상속한 Rectangle 타입으로 값을 넣었지만 Rectangle 타입으로 유추하지 않고 Shape 타입으로 인식한다.
 
-`
+```
 class Example {
     
     fun printFunctionType() { println("Class method") }
@@ -90,7 +90,7 @@ fun Example.printFunctionType(i: Int) { println("Extension function")
 Example().printFunctionType(1)
 -------------------------------
 결과값: Extension method
-`
+```
 원래 class member 함수와 name과 인자가 같은 extension한 함수를 비교해 보면 class member 함수가 적용된다.
 
 하지만 인자가 다른 함수면 인자에 맞게 결정된다.
@@ -116,14 +116,14 @@ componentN()
 copy() function
 
 이런 함수들이 컴파일시 자동으로 생성된다. 자동으로 함수를 생성하지 않으려면 생성자를 만들지 말고 멤버로 선언하면 된다.
-`
+```
 
 data class Person(val name: String) {
     
     var age: Int = 0
 
 }
-`
+```
 또한 data class를 작성시 유의사항이 있다.
 
 1. 파라미터에 변수가 하나라도 있어야 한다.
@@ -135,7 +135,7 @@ data class Person(val name: String) {
 추상클래스로 상속받는 자식클래스를 제한하기 위한 클래스이다. Sealed class는 상속받는 자식클래스들을 알 수 있게 한다.
 
 좀더 이해를 돕기위한 예:
-`
+```
 abstract class CarAction
 
 class Go: CarAction()
@@ -166,7 +166,7 @@ fun main() {
 // else를 추가하면 error는 사라지지만 Go,Stop,Back 클래스중 하나가 없이 작성되어도 정상작동한다.
 // 따라서 실제 상용하될 코드라면 위험 할 수 있다.
 
-`
+```
 이러한 문제점을 해결하기 위해서 Sealed class 가 등장했다. enum과 비슷한 역할
 
 sealed class 를 상속받는 자식 클래스들이 멤버가 없는 경우라면 object를 사용한다. (object는 한번만 메모리에 올려서 사용한다.)
@@ -180,7 +180,8 @@ sealed class 를 상속받는 자식 클래스들이 멤버가 없는 경우라�
 java 에서 제네릭 타입을 사용하면 
 
 
-`class A<T>{
+```
+class A<T>{
 }
 public class Main{
     public static void main(String[] args){
@@ -188,19 +189,19 @@ public class Main{
         
     }
 
-}`
+}
+```
 
 
 이런식으로 사용하면 원하는 타입만 외부에서 주입해서 사용하면 되므로 재사용성이 높아진다.
 
-
-`
+```
 List<String> strs = new ArrayList<String>();
 List<Object> objs = strs; // !!! 여기서 컴파일 에러가 발생
 objs.add(1); // 만약 에러가 나지 않아서 1을 집어 넣게 된다면
 String s = strs.get(0); // !!! ClassCastException 런타임 에러 발생
 
-`
+```
 
 여기에서 String는 Object를 상속받지만 List<String>는 List<Object>를 상속받지 않는다.
 
@@ -208,12 +209,12 @@ String s = strs.get(0); // !!! ClassCastException 런타임 에러 발생
     
 그래서 이런 문제를 해결하기 위해서 자바에서는 wildcard가 있다.
     
-`
+```
 interface Collection<E> ... {
   void addAll(Collection<? extends E> items);
 }    
     
-`
+```
 <? extends E>, <? super E> 이런식으로 작성해서 해결 가능하다.
 
 위에서와 같이 items는 E일수도 E의 Subtype 일수도 있는 item들이 들어있다. 그래서 item을 읽으면 모두 E라는 형식에 담을 수 있다.
