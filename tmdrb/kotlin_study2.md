@@ -130,6 +130,57 @@ data class Person(val name: String) {
 2. val,var로 변수를 생성해야한다.
 3. abstract,inner,sealed,open 은 될 수 없다.
 
+## Enum Class
+
+enum class 는 자바의 final과 같이 상수이며 지정해둔 class만 사용하게 할 수 있어 안전하다.
+
+또한 인스턴스화 할 수 없으며 enum class 에서 인스턴스를 만들기 때문에 싱글톤 객체이다.
+
+추상메소드를 사용 할 수 있고 생성자 초기화도 할 수 있다.
+
+```
+enum class Material(val type:String){
+    PLASTIC("플라스틱"){
+        override fun weightTowon(weight: Int): Int {
+          return when(weight){
+                in 0..10 -> 100
+                in 10..29 -> 150
+                in 30..100 -> 200
+                else -> throw Exception()
+            }
+ 
+        }
+    },
+    GLASS("유리"){
+    override fun weightTowon(weight: Int): Int {
+          return when(weight){
+                in 0..10 -> 150
+                in 10..29 -> 250
+                in 30..100 -> 300
+                else -> throw Exception()
+            }
+ 
+        }
+    },
+    IRON("철"){
+    override fun weightTowon(weight: Int): Int {
+          return when(weight){
+                in 0..10 -> 200
+                in 10..29 -> 250
+                in 30..30 -> 300
+                else -> throw Exception()
+            }
+ 
+        }
+    };
+    
+    abstract fun weightTowon(weight: Int): Int
+
+}
+```
+### 주의사항 -> 생성자 초기화 시 프로퍼티명을 name으로 사용하면 안된다. name 이라는 프로퍼티는 enum class 안에 있는 클래스들의 이름을 출력해주도록 이미 존재하기 때문이다.
+
+
 ## Sealed Class
 
 추상클래스로 상속받는 자식클래스를 제한하기 위한 클래스이다. Sealed class는 상속받는 자식클래스들을 알 수 있게 한다.
