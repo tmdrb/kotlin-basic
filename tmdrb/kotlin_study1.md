@@ -28,18 +28,19 @@
 2. 익명 메소드를 전달하면, 단 1개의 추상 메소드를 구현한 익명 인스턴스를 생성해낸다.
 
 ### 람다식을 사용하지 않았을 경우
-`
+```
 fun interface IntPredicate {
    fun accept(i: Int): Boolean
 }
-`
-`
+
+
 val isEven = object : IntPredicate {
    override fun accept(i: Int): Boolean {
        return i % 2 == 0
    }
 }
-`
+
+```
 ### 람다식을 사용했을 경우
 
 `
@@ -50,7 +51,7 @@ val isEven = IntPredicate{ i%2 == 0}
 
 타입 별명은 단순히 하나의 멤버에 이미 존재하는 타입을 연결시켜준다. 
 함수 인터페이스는 여러개의 추상적이지 않은 멤버와 한개의 추상적인 멤버를 가진다.
-`
+```
 typealias Predicate<T> = (T) -> Boolean
 
 fun foo(p: Predicate<Int>) = p(42)
@@ -62,7 +63,7 @@ fun main() {
     val p: Predicate<Int> = { it > 0 }
     println(listOf(1, -2).filter(p)) // prints "[1]"
 }
-`
+```
 공부가 더 필요
 --------------
 
@@ -93,7 +94,7 @@ protected member은 private과 같지만 subclass에서도 접근 가능
 
 iternal member는 class 가 선언된 같은 모듈안에서 접근 가능
 
-`
+```
 open class Outer {
     private val a = 1
     protected open val b = 2
@@ -119,7 +120,7 @@ class Unrelated(o: Outer) {
     // o.c and o.d are visible (same module)
     // Outer.Nested is not visible, and Nested::e is not visible either
 }
-`
+```
 
 ## Extension
 
@@ -127,17 +128,17 @@ class Unrelated(o: Outer) {
 
 기존 클래스에 상속이나 디자인 패턴을 사용하지 않고 기능을 추가 하는것
 
-`
+```
 fun MutableList<Int>.swap(index1: Int, index2: Int) {
     val tmp = this[index1] // 'this' corresponds to the list
     this[index1] = this[index2]
     this[index2] = tmp
 }
-`
+```
 
 reciver 타입을 앞에 쓰고 블록 안에 this 는 reciver 타입과 반응한다.
 
-`
+```
 open class Shape
 class Rectangle: Shape()
 
@@ -149,7 +150,9 @@ fun printClassName(s: Shape) {
 }
 
 printClassName(Rectangle())
-`
+
+```
+
 "shape" 이 프린트 됨
 
 receiver type에 의해서 가상화가 되지 않는다는 것은 receiver로 Shape를 사용하여 Rectangle를 만들어내는 작업이 되지 않는다. (확장함수가 정적으로 전달 된다.)
