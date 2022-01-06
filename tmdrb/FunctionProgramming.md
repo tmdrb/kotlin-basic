@@ -23,14 +23,11 @@
 
 ex) 
 
-`
-var num3: Int = 100
+`var num3: Int = 100
 fun Plus(num1: Int, num2: Int): Int { 
   num2 = num3
   return num1 + num2
-}
-
-`
+}`
 
 위의 함수를 실행시키게 되면 입력값 num2가 전역변수로 인해서 값이 변한다. 따라서 내가 예상했던 결과값과 다른 결과값이 나오게 된다.
 
